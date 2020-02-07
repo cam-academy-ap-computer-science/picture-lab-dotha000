@@ -13,9 +13,11 @@ public class PictureTester
   /** Method to test zeroBlue */
   public static void testZeroBlue()
   {
-    Picture beach = new Picture("beach.jpg");
+    Picture beach = new Picture("///U:/git/picture-lab-dotha000/images/beach.jpg");
     beach.explore();
     beach.zeroBlue();
+    beach.explore();
+    beach.keepOnlyBlue();
     beach.explore();
   }
   
@@ -52,6 +54,9 @@ public class PictureTester
     swan.edgeDetection(10);
     swan.explore();
   }
+  public static void testKeepOnlyBlue() {
+	  
+  }
   
   /** Main method for testing.  Every class can have a main
     * method in Java */
@@ -61,7 +66,7 @@ public class PictureTester
     // and comment out the ones you don't want
     // to run
     testZeroBlue();
-    //testKeepOnlyBlue();
+    testKeepOnlyBlue();
     //testKeepOnlyRed();
     //testKeepOnlyGreen();
     //testNegate();
