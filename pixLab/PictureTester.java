@@ -13,7 +13,7 @@ public class PictureTester
   /** Method to test zeroBlue */
   public static void testZeroBlue()
   {
-    Picture beach = new Picture("///U:/git/picture-lab-dotha000/images/beach.jpg");
+    Picture beach = new Picture("images\\beach.jpg");
     beach.explore();
     beach.zeroBlue();
     beach.explore();
@@ -24,16 +24,29 @@ public class PictureTester
   /** Method to test mirrorVertical */
   public static void testMirrorVertical()
   {
-    Picture caterpillar = new Picture("caterpillar.jpg");
+    Picture caterpillar = new Picture("images//caterpillar.jpg");
     caterpillar.explore();
     caterpillar.mirrorVertical();
     caterpillar.explore();
+  }
+  public static void testMirrorVerticalRightToLeft()
+  {
+    Picture caterpillar = new Picture("images//caterpillar.jpg");
+    caterpillar.explore();
+    caterpillar.mirrorVerticalRightToLeft();
+    caterpillar.explore();
+  }
+  public static void testMirrorHorizontal() {
+	  Picture moto = new Picture("images//redMotorcycle.jpg");
+	  moto.explore();
+	  moto.mirrorVertical();
+	  moto.explore();
   }
   
   /** Method to test mirrorTemple */
   public static void testMirrorTemple()
   {
-    Picture temple = new Picture("temple.jpg");
+    Picture temple = new Picture("images//temple.jpg");
     temple.explore();
     temple.mirrorTemple();
     temple.explore();
@@ -55,7 +68,10 @@ public class PictureTester
     swan.explore();
   }
   public static void testKeepOnlyBlue() {
-	  
+	  Picture beach = new Picture("images//beach.jpg");
+	  beach.explore();
+	  beach.keepOnlyBlue();
+	  beach.explore();
   }
   
   /** Main method for testing.  Every class can have a main
@@ -65,14 +81,16 @@ public class PictureTester
     // uncomment a call here to run a test
     // and comment out the ones you don't want
     // to run
-    testZeroBlue();
-    testKeepOnlyBlue();
+    //testZeroBlue();
+    //testKeepOnlyBlue();
     //testKeepOnlyRed();
     //testKeepOnlyGreen();
     //testNegate();
     //testGrayscale();
     //testFixUnderwater();
     //testMirrorVertical();
+    //testMirrorVerticalRightToLeft();
+	  testMirrorHorizontal();
     //testMirrorTemple();
     //testMirrorArms();
     //testMirrorGull();
