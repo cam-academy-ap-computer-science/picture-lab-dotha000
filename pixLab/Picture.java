@@ -147,19 +147,49 @@ public class Picture extends SimplePicture
   }
   public void mirrorHorizontal()
   {
-    Pixel[][] pixels = this.getPixels2D();
-    Pixel topPixel = null;
-    Pixel botPixel = null;
-    int height = pixels.length;
-    for (int row = 0; row < height / 2; row++)
-    {
-      for (int col = 0; col < pixels[0].length; col++)
-      {
-        topPixel = pixels[row][col];
-        botPixel = pixels[row][height - 1 - col];
-        botPixel.setColor(topPixel.getColor());
-      }
-    } 
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel topPixel = null;
+	  Pixel botPixel = null;
+	  int height = pixels.length;
+	  for (int row = 0; row < height / 2; row++){
+		  for (int col = 0; col < pixels[0].length; col++){
+			  topPixel = pixels[row][col];
+			  botPixel = pixels[height - row - 1][col];
+			  botPixel.setColor(topPixel.getColor());
+		  }
+	  }
+  }
+  public void mirrorHorizontalBotToTop()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel topPixel = null;
+	  Pixel botPixel = null;
+	  int height = pixels.length;
+	  for (int row = 0; row < height / 2; row++){
+		  for (int col = 0; col < pixels[0].length; col++){
+			  topPixel = pixels[row][col];
+			  botPixel = pixels[height - row - 1][col];
+			  topPixel.setColor(botPixel.getColor());
+		  }
+	  }
+  }
+  public void mirrorDiagonal()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel topPixel = null;
+	  Pixel botPixel = null;
+	  int height = pixels.length;
+	  for (int row = 0; row < height; row++){
+		  for (int col = 0; col < pixels[0].length; col++){
+			  if (col < pixels.length) {
+				  topPixel = pixels[col][row];
+			  }
+			  if (row < pixels[0].length) {
+				  botPixel = pixels[row][col];
+			  }
+			  botPixel.setColor(topPixel.getColor());
+		  }
+	  }
   }
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
@@ -263,8 +293,29 @@ public class Picture extends SimplePicture
 	  Pixel[][] pixels = this.getPixels2D();
 	  for (Pixel[] rowArray : pixels) {
 		  for (Pixel pixelObj : rowArray) {
-			  pixelObj.setRed(0);
-			  pixelObj.setGreen(0);
+			  pixelObj.setRed(255 - pixelObj.getRed());
+			  pixelObj.setGreen(255 - pixelObj.getGreen());
+			  pixelObj.setBlue(255 - pixelObj.getBlue());
+		  }
+	  }
+  }
+  public void grayscale() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for (Pixel[] rowArray : pixels) {
+		  for (Pixel pixelObj : rowArray) {
+			  pixelObj.setRed((pixelObj.getRed() + pixelObj.getBlue() + pixelObj.getGreen())/3);
+			  pixelObj.setGreen((pixelObj.getRed() + pixelObj.getBlue() + pixelObj.getGreen())/3);
+			  pixelObj.setBlue((pixelObj.getRed() + pixelObj.getBlue() + pixelObj.getGreen())/3);
+		  }
+	  }
+  }
+  public void fixUnderwater() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for (Pixel[] rowArray : pixels) {
+		  for (Pixel pixelObj : rowArray) {
+			  pixelObj.setRed(pixelObj.getRed() + 100);
+			  pixelObj.setGreen(pixelObj.getGreen() - 10);
+			  pixelObj.setBlue(pixelObj.getBlue() + 50);
 		  }
 	  }
   }
