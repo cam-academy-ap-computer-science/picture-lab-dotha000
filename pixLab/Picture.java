@@ -179,14 +179,18 @@ public class Picture extends SimplePicture
 	  Pixel topPixel = null;
 	  Pixel botPixel = null;
 	  int height = pixels.length;
-	  for (int row = 0; row < height; row++){
-		  for (int col = 0; col < pixels[0].length; col++){
-			  if (col < pixels.length) {
-				  topPixel = pixels[col][row];
-			  }
-			  if (row < pixels[0].length) {
-				  botPixel = pixels[row][col];
-			  }
+	  int width = pixels[0].length;
+	  int subtractH = 0;
+	  int subtractW = 0;
+	  if (height > width) {
+		  subtractH = height - width;
+	  } else {
+		  subtractW = width - height;
+	  }
+	  for (int row = 0; row < height - subtractH; row++){
+		  for (int col = 0; col < width - subtractW; col++){
+			  topPixel = pixels[col][row];
+			  botPixel = pixels[row][col];
 			  botPixel.setColor(topPixel.getColor());
 		  }
 	  }
@@ -314,8 +318,8 @@ public class Picture extends SimplePicture
 	  for (Pixel[] rowArray : pixels) {
 		  for (Pixel pixelObj : rowArray) {
 			  pixelObj.setRed(pixelObj.getRed() + 100);
-			  pixelObj.setGreen(pixelObj.getGreen() - 10);
-			  pixelObj.setBlue(pixelObj.getBlue() + 50);
+			  pixelObj.setGreen(pixelObj.getGreen() + 30);
+			  pixelObj.setBlue(pixelObj.getBlue() + 20);
 		  }
 	  }
   }
