@@ -97,10 +97,16 @@ public class PictureTester
 	  water.explore();
   }
   public static void testMirrorDiagonal() {
-	  Picture beach = new Picture("images//beach.jpg");
+	  Picture beach = new Picture("images//butterfly1.jpg");
 	  beach.explore();
 	  beach.mirrorDiagonal();
 	  beach.explore();
+  }
+  public static void testMirrorArms() {
+	  Picture snowman = new Picture("images//snowman.jpg");
+	  snowman.explore();
+	  snowman.mirrorArms();
+	  snowman.explore();
   }
   
   /** Main method for testing.  Every class can have a main
@@ -116,14 +122,14 @@ public class PictureTester
     //testKeepOnlyGreen();
     //testNegate();
     //testGrayscale();
-    testFixUnderwater();
+    //testFixUnderwater();
     //testMirrorVertical();
     //testMirrorVerticalRightToLeft();
 	//testMirrorHorizontal();
 	//testMirrorHorizontalBotToTop();
 	//testMirrorDiagonal();
     //testMirrorTemple();
-    //testMirrorArms();
+    testMirrorArms();
     //testMirrorGull();
     //testMirrorDiagonal();
     //testCollage();
