@@ -219,18 +219,35 @@ public class Picture extends SimplePicture
     System.out.print(count);
   }
   public void mirrorArms() {
-	  int mirrorPoint = 296;
+	  int mirrorPoint = 300;
 	  Pixel leftPixel = null;
 	  Pixel rightPixel = null;
 	  Pixel[][] pixels = this.getPixels2D();
 	  // loop through the rows
-	  for (int row = 157; row < 193; row++)
+	  for (int row = 157; row < 200; row++)
 	  {
 	    // loop from 13 to just before the mirror point
-	    for (int col = 98; col < mirrorPoint; col++)
+	    for (int col = 100; col < mirrorPoint; col++)
 	    {
 	      leftPixel = pixels[row][col];      
-	      rightPixel = pixels[row + 86][mirrorPoint - col + mirrorPoint + 60];
+	      rightPixel = pixels[row + 50][mirrorPoint - col + 110];
+	      rightPixel.setColor(leftPixel.getColor());
+	    }
+	  }
+  }
+  public void mirrorGull() {
+	  int mirrorPoint = 350;
+	  Pixel leftPixel = null;
+	  Pixel rightPixel = null;
+	  Pixel[][] pixels = this.getPixels2D();
+	  // loop through the rows
+	  for (int row = 234; row < 322; row++)
+	  {
+	    // loop from 13 to just before the mirror point
+	    for (int col = 234; col < mirrorPoint; col++)
+	    {
+	      leftPixel = pixels[row][col];      
+	      rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
 	      rightPixel.setColor(leftPixel.getColor());
 	    }
 	  }
@@ -308,18 +325,16 @@ public class Picture extends SimplePicture
   public void myCollage()
   {
     Picture flower1 = new Picture("images//flower1.jpg");
-    Picture flower2 = new Picture("images//flower2.jpg");
-    Picture beach = new Picture("images//beach.jpg");
-    
-    this.copy2(beach,0,0, 10, 10, 20, 20);
-    this.copy2(flower2,100,0, 10, 110, 120, 20);
-    this.copy2(flower1,200,0, 10, 210, 220, 20);
-    Picture flowerNoBlue = new Picture(flower2);
+    Picture negateFlower = new Picture("images//flower1.jpg");
+    negateFlower.negate();
+    this.copy2(negateFlower,0,0, 99, 99, 0, 0);
+    this.copy2(flower1,0,0, 99, 99, 99, 0);
+    this.copy2(flower1,0,0, 99, 99, 99, 99);
+    Picture flowerNoBlue = new Picture(flower1);
     flowerNoBlue.zeroBlue();
-    this.copy2(flowerNoBlue,319,0 , 310 , 10, 320, 20);
-    this.copy2(flower1,320,0, 320, 10, 320, 20);
-    this.copy2(flower2,250,0, 250, 10 , 220, 20);
-    this.mirrorVertical();
+    this.copy2(flowerNoBlue,0 ,0 , 99 , 99, 0, 99);
+    this.mirrorHorizontal();
+    this.mirrorDiagonal();
     this.write("images//collage.jpg");
   }
   
@@ -327,17 +342,27 @@ public class Picture extends SimplePicture
   /** Method to show large changes in color 
     * @param edgeDist the distance for finding edges
     */
-  public void edgeDetection(int edgeDist)
+  public void edgeDetection(int edgeDist, Picture p)
   {
     Pixel leftPixel = null;
     Pixel rightPixel = null;
-    Pixel[][] pixels = this.getPixels2D();
+    Pixel topPixel = null;
+    Pixel botPixel = null;
+    Pixel[][] pixels = p.getPixels2D();
     Color rightColor = null;
+    Color botColor = null;
     for (int row = 0; row < pixels.length; row++)
     {
       for (int col = 0; 
            col < pixels[0].length-1; col++)
       {
+    	  topPixel = pixels[row][col];
+          botPixel = pixels[row + 1][col];
+          botColor = botPixel.getColor();
+          if (topPixel.colorDistance(botColor) > edgeDist)
+            topPixel.setColor(Color.BLACK);
+          else
+            topPixel.setColor(Color.WHITE);
         leftPixel = pixels[row][col];
         rightPixel = pixels[row][col+1];
         rightColor = rightPixel.getColor();
@@ -348,6 +373,20 @@ public class Picture extends SimplePicture
           leftPixel.setColor(Color.WHITE);
       }
     }
+    /*for (int row = 0; row < pixels.length - 1; row++)
+    {
+      for (int col = 0; 
+           col < pixels[0].length; col++)
+      {
+        topPixel = pixels[row][col];
+        botPixel = pixels[row + 1][col];
+        botColor = botPixel.getColor();
+        if (topPixel.colorDistance(botColor) > edgeDist)
+          topPixel.setColor(Color.BLACK);
+        else
+          topPixel.setColor(Color.WHITE);
+      }
+    }*/
   }
   public void negate() {
 	  Pixel[][] pixels = this.getPixels2D();
@@ -386,7 +425,7 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("images//beach.jpg");
+    Picture beach = new Picture("images//flower1.jpg");
     beach.explore();
     //beach.zeroBlue();
     //beach.explore();
